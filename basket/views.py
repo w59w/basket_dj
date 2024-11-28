@@ -14,7 +14,7 @@ def order_create(request):
             return redirect('order_list')
     else:
         form = OrderForm()
-    return render(request, 'basket/order_form.html', {'form': form})  # Убедитесь, что указан 'basket/order_form.html'
+    return render(request, 'basket/order_form.html', {'form': form})  
 
 
 def order_list(request):
@@ -30,7 +30,6 @@ def order_edit(request, pk):
     if request.method == 'POST':
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
-            # Возврат книги в наличие при изменении заказа
             old_book = order.book
             old_book.increase_quantity()
             new_order = form.save()
@@ -44,7 +43,7 @@ def order_edit(request, pk):
 def order_delete(request, pk):
     order = get_object_or_404(Order, pk=pk)
     if request.method == 'POST':
-        order.book.increase_quantity()  # Возвращаем книгу в наличие
+        order.book.increase_quantity()
         order.delete()
         return redirect('order_list')
     return render(request, 'orders/order_confirm_delete.html', {'order': order})
