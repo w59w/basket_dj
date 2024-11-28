@@ -1,0 +1,13 @@
+{% extends 'basket/base.html' %}
+
+{% block title %}Delete Order{% endblock %}
+
+{% block content %}
+<h2>Delete Order</h2>
+<p>Are you sure you want to delete the order for "{{ order.book.title }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+</form>
+<a href="{% url 'order_list' %}">Cancel</a>
+{% endblock %}
